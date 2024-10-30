@@ -233,6 +233,68 @@
      </property>
     </widget>
    </widget>
+   <widget class="QWidget" name="CreateServerStep2">
+    <widget class="QPushButton" name="installserver_button">
+     <property name="geometry">
+      <rect>
+       <x>140</x>
+       <y>300</y>
+       <width>501</width>
+       <height>81</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>High Speed</family>
+       <pointsize>20</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>Install Server</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="installserver_title">
+     <property name="geometry">
+      <rect>
+       <x>110</x>
+       <y>30</y>
+       <width>581</width>
+       <height>61</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Install CS2 Server</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignmentFlag::AlignCenter</set>
+     </property>
+    </widget>
+    <widget class="QLabel" name="installserver_note">
+     <property name="geometry">
+      <rect>
+       <x>150</x>
+       <y>90</y>
+       <width>491</width>
+       <height>121</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Consolas</family>
+       <pointsize>12</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>Note: Please wait patiently for SteamCMD to download the game, as the current CS2 has no dedicated server like csgo, you will have to download the full contents of CS2 (About 43GB), please reserve at least 55 GB of free space on your PC, or else the installation will fail due to lack of cache space.</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignmentFlag::AlignCenter</set>
+     </property>
+     <property name="wordWrap">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </widget>
    <widget class="QWidget" name="HelpPage"/>
    <widget class="QWidget" name="SettingsPage"/>
   </widget>
