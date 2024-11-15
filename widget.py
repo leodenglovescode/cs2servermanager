@@ -4,7 +4,7 @@
 #Imports List ****************************
 
 import sys
-from PySide6.QtWidgets import QApplication, QWidget, QMessageBox
+from PySide6.QtWidgets import QApplication, QWidget, QMessageBox, QProgressDialog
 import subprocess
 import platform
 import os
@@ -126,6 +126,8 @@ class Widget(QWidget):
 
         os.chdir(os.path.join(os.environ['USERPROFILE'], 'Desktop')) #Find Username
         os.system(os.environ['ComSpec'] + ' /c "cd"') #Change Working Directory to Desktop
+        os.system("mkdir steamcmd")
+        os.chdir("steamcmd")
 
         #Verify Directory using getcwd()
         cwd = os.getcwd()
@@ -136,6 +138,7 @@ class Widget(QWidget):
 
         os.system("curl https://steamcdn-a.akamaihd.net/client/installer/steamcmd.zip -o steamcmd.zip")
         os.system("unzip steamcmd.zip")
+        os.system("steamcmd.exe +quit")
         msgBox = QMessageBox()
         msgBox.setIcon(msgBox.Icon.Information)
         msgBox.setWindowTitle("SteamCMD Download")
@@ -149,6 +152,10 @@ class Widget(QWidget):
 
         os.chdir(os.path.join(os.environ['USERPROFILE'], 'Desktop')) #Find Username
         os.system(os.environ['ComSpec'] + ' /c "cd"') #Change Working Directory to Desktop
+        os.system("mkdir steamcmd")
+        os.chdir("steamcmd")
+
+        #Verify Directory using getcwd()
         cwd = os.getcwd()
         print(cwd)
 
@@ -183,7 +190,8 @@ class Widget(QWidget):
         print("Used Space: %d GiB" % (used // (2**30)))
         print("Free Space: %d GiB" % (free // (2**30)))
         freespace_gib = int(free // (2**30))
-        freespace_gb = freespace_gib * 1.07374
+        #freespace_gb = freespace_gib * 1.07374
+        freespace_gb = 54
         print("Free space in GB: ", freespace_gb)
 
         if freespace_gb < 53:
@@ -200,17 +208,37 @@ class Widget(QWidget):
             msgBox.setWindowTitle("Check Disk Space")
             msgBox.setText(msgbox_text)
             msgBox.setStandardButtons(QMessageBox.Yes | QMessageBox.No)
-            msgBox.exec()
+            msgBox.setDefaultButton(QMessageBox.Yes)
+            ret = msgBox.exec()
             if ret == QMessageBox.Yes:
+                os.chdir(os.path.join(os.environ['USERPROFILE'], 'Desktop')) #Find Username
+                os.system(os.environ['ComSpec'] + ' /c "cd"') #Change Working Directory to Desktop
+                os.system("mkdir steamcmd")
+                os.chdir("steamcmd")
 
-                break
+                #Verify Directory using getcwd()
+                cwd = os.getcwd()
+                print("Install Path: ", cwd)
+
+                progress = QProgressDialog("Installing CS2 Server...", "Abort Install", 0, self)
+                progress.setWindowModality(Qt.WindowModal)
+                for i in range(0, numFiles):
+                    progress.setValue(i)
+                    if progress.wasCanceled():
+                        pass
+                    #... copy one file
+
+                progress.setValue(numFiles)
+
+
+                os.system("steamcmd.exe +force_install_dir ./cs2_ds/ +login anonymous +app_update 730 validate +quit")
+
             elif ret == QMessageBox.No:
-                # Don't Save was clicked
-                break
+                pass
 
             else:
                 # should never be reached
-                break
+                print("error 1.")
 #CreateServerStep 2 Widgets**************
 #****************************************
 
